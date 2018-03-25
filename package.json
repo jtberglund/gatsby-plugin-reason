@@ -1,17 +1,25 @@
 {
-  "name": "gatsby-plugin-reason",
-  "version": "1.0.0",
-  "description": "Gatsby plugin so you can write your site in ReasonML!",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [
-    "gatsby",
-    "reason",
-    "reasonml",
-    "plugin"
-  ],
-  "author": "Jeremy Berglund",
-  "license": "MIT"
+    "name": "gatsby-plugin-reason",
+    "version": "0.1.0-rc.0",
+    "description": "Gatsby plugin so you can write your site in ReasonML!",
+    "main": "index.js",
+    "scripts": {
+        "build": "babel src --out-dir .",
+        "watch": "babel -w src --out-dir .",
+        "prepublish": "npm run build"
+    },
+    "keywords": ["gatsby", "reason", "reasonml", "plugin"],
+    "author": "Jeremy Berglund",
+    "license": "MIT",
+    "devDependencies": {
+        "babel-cli": "^6.26.0",
+        "babel-preset-env": "^1.6.1",
+        "bs-loader": "^2.0.1"
+    },
+    "dependencies": {
+        "bsb-js": "^1.0.2"
+    },
+    "peerDependencies": {
+        "gatsby": "^1.0.0"
+    }
 }
