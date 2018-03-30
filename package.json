@@ -1,6 +1,6 @@
 {
     "name": "gatsby-plugin-reason",
-    "version": "0.1.0-rc.1",
+    "version": "0.1.0-rc.2",
     "description": "Gatsby plugin so you can write your site in ReasonML!",
     "main": "index.js",
     "scripts": {
@@ -8,7 +8,13 @@
         "watch": "babel -w src --out-dir .",
         "prepublish": "npm run build"
     },
-    "keywords": ["gatsby", "reason", "reasonml", "plugin", "gatsby-plugin"],
+    "keywords": [
+        "gatsby",
+        "reason",
+        "reasonml",
+        "plugin",
+        "gatsby-plugin"
+    ],
     "author": "Jeremy Berglund",
     "license": "MIT",
     "repository": "https://github.com/jtberglund/gatsby-plugin-reason",
