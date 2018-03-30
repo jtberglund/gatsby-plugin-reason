@@ -8,23 +8,18 @@
         "watch": "babel -w src --out-dir .",
         "prepublish": "npm run build"
     },
-    "keywords": [
-        "gatsby",
-        "reason",
-        "reasonml",
-        "plugin",
-        "gatsby-plugin"
-    ],
+    "keywords": ["gatsby", "reason", "reasonml", "plugin", "gatsby-plugin"],
     "author": "Jeremy Berglund",
     "license": "MIT",
     "repository": "https://github.com/jtberglund/gatsby-plugin-reason",
     "devDependencies": {
         "babel-cli": "^6.26.0",
-        "babel-preset-env": "^1.6.1",
-        "bs-loader": "^2.0.1"
+        "babel-preset-env": "^1.6.1"
     },
     "dependencies": {
-        "bsb-js": "^1.0.2"
+        "bs-loader": "^2.0.1",
+        "bsb-js": "^1.0.2",
+        "reason-react": "^0.3.0"
     },
     "peerDependencies": {
         "gatsby": "^1.0.0"
