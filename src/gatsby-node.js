@@ -24,9 +24,16 @@ const jsFilePath = (buildDir, moduleDir, resourcePath, inSource, bsSuffix) => {
 };
 
 export const preprocessSource = ({ filename }) => {
+    if (!isReasonFile(filename)) {
+        return null;
+    }
     const moduleDir = 'js';
-    const compiledFilePath = jsFilePath(process.cwd(), moduleDir, filename, false, '.js');
-    return isReasonFile(filename) ? compileFileSync(moduleDir, compiledFilePath) : null;
+    const compiledFilePath = jsFilePath(process.cwd(), moduleDir, filename, false, '.bs.js');
+    try {
+        return compileFileSync(moduleDir, compiledFilePath);
+    } catch (e) {
+        // Don't need to print error message since bsb will already do that
+    }
 };
 
 export const resolvableExtensions = () => ['.ml', '.re'];
