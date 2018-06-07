@@ -2,6 +2,8 @@
 
 Gatsby plugin so you can write your site in ReasonML!
 
+Check out [gatsby-start-reason](https://github.com/jtberglund/gatsby-starter-reason) for an in-depth example of how to use this plugin with your site.
+
 ## Setup
 
 1.  Install `gatsby-plugin-reason`
@@ -79,13 +81,11 @@ Gatsby plugin so you can write your site in ReasonML!
     let component = ReasonReact.statelessComponent("Paragraph");
 
     let make = children => {
-    ...component,
-    render: _self =>
-        <p> children </p>
+        ...component,
+        render: _self => <p> children </p>
     };
 
-    let default =
-    ReasonReact.wrapReasonForJs(~component, jsProps => make(jsProps##children));
+    let default = ReasonReact.wrapReasonForJs(~component, jsProps => make(jsProps##children));
     ```
 
 2.  Import the reason file from your JavaScript components
