@@ -2,7 +2,7 @@
 
 Gatsby plugin so you can write your site in ReasonML!
 
-Check out [gatsby-start-reason](https://github.com/jtberglund/gatsby-starter-reason) for an in-depth example of how to use this plugin with your site.
+Check out [gatsby-starter-reason](https://github.com/jtberglund/gatsby-starter-reason) for an in-depth example of how to use this plugin with your site.
 
 ## Setup
 
