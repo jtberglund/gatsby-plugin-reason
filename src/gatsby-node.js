@@ -37,3 +37,22 @@ export const preprocessSource = ({ filename }) => {
 };
 
 export const resolvableExtensions = () => ['.ml', '.re'];
+
+const isCompiledComponent = path => path.endsWith('.bs.js');
+
+export const onCreatePage = args => {
+    const {
+        page,
+        boundActionCreators: { deletePage }
+    } = args;
+
+    return new Promise((resolve, reject) => {
+        const oldPage = Object.assign({}, page);
+        // Remove .bs components so we don't have duplicates
+        if (isCompiledComponent(page.component)) {
+            deletePage(oldPage);
+        }
+
+        resolve();
+    });
+};
