@@ -1,9 +1,13 @@
 import { compileFileSync, runBuildSync } from 'bsb-js';
 
+import fs from 'fs';
+import { getPathForComponent } from './utils';
 import path from 'path';
 
+const BS_TEST = /\.(bs.js)$/;
 const REASON_TEST = /\.(ml|re)$/;
 
+const isCompiledFile = fileName => BS_TEST.test(fileName);
 const isReasonFile = fileName => REASON_TEST.test(fileName);
 
 export const modifyWebpackConfig = ({ config }) =>
@@ -38,19 +42,24 @@ export const preprocessSource = ({ filename }) => {
 
 export const resolvableExtensions = () => ['.ml', '.re'];
 
-const isCompiledComponent = path => path.endsWith('.bs.js');
-
-export const onCreatePage = args => {
-    const {
-        page,
-        boundActionCreators: { deletePage }
-    } = args;
-
+export const onCreatePage = ({ page, boundActionCreators: { createPage, deletePage } }, { derivePathFromComponentName }) => {
     return new Promise((resolve, reject) => {
         const oldPage = Object.assign({}, page);
-        // Remove .bs components so we don't have duplicates
-        if (isCompiledComponent(page.component)) {
+        const { component: path } = page;
+
+        if (isCompiledFile(path)) {
+            // Remove .bs components so we don't have duplicates
             deletePage(oldPage);
+        } else if (derivePathFromComponentName && isReasonFile(path)) {
+            // Try to grab the name of the component from the ReasonReact
+            // component instead of using the file name
+            const source = fs.readFileSync(path, 'utf-8');
+            const newPath = getPathForComponent(source);
+            if (newPath !== undefined) {
+                const newPage = Object.assign({}, page, { path: `/${newPath}/` });
+                deletePage(oldPage);
+                createPage(newPage);
+            }
         }
 
         resolve();
