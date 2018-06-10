@@ -42,7 +42,7 @@ export const preprocessSource = ({ filename }) => {
 
 export const resolvableExtensions = () => ['.ml', '.re'];
 
-export const onCreatePage = ({ page, boundActionCreators: { createPage, deletePage } }, { derivePathFromComponentName = true }) => {
+export const onCreatePage = ({ page, boundActionCreators: { createPage, deletePage } }, { derivePathFromComponentName }) => {
     return new Promise((resolve, reject) => {
         const oldPage = Object.assign({}, page);
         const { component: path } = page;
