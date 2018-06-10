@@ -1,6 +1,6 @@
 {
     "name": "gatsby-plugin-reason",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "description": "Gatsby plugin so you can write your site in ReasonML!",
     "main": "index.js",
     "scripts": {
