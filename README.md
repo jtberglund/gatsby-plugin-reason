@@ -73,7 +73,7 @@ Check out [gatsby-starter-reason](https://github.com/jtberglund/gatsby-starter-r
 
 ## Usage
 
-### Creating Pages
+### <a name="pages"></a>Creating Pages
 
 Normally, Gatsby will take all the components defined in `src/pages` and turn each component into its own page, using the file name as the path.
 
@@ -84,12 +84,12 @@ However, ReasonML does not allow dashes in file names or file names composed of 
 To get around that, you can use the `derivePathFromComponentName` option to remap the path to your component based on the name you give your page component. For instance, you can have `src/pages/NotFound.re` map to the `404` route as shown below:
 
 ```ocaml
-// Whatever string you pass to ReasonReact.statelessComponent will be the page's route
-// In this case, this page will be used for the 404 page
+/* Whatever string you pass to ReasonReact.statelessComponent will be the page's route
+In this case, this page will be used for the 404 page */
 let component = ReasonReact.statelessComponent("404");
 
 let make = children => {
-    // ...
+    /* ... */
 };
 
 let default = ReasonReact.wrapReasonForJs(~component, jsProps => make(jsProps##children));
@@ -120,3 +120,13 @@ let default = ReasonReact.wrapReasonForJs(~component, jsProps => make(jsProps##c
         return <Paragraph>Hello world!</Paragraph>;
     };
     ```
+
+## Options
+
+| Name                        | Type      | Default | Description                                                                                                                   |
+| --------------------------- | --------- | ------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| derivePathFromComponentName | `boolean` | `false` | Instead of deriving a page's URL path from its file name, use the name of the component instead. See [Creating pages](#pages) |
+
+## License
+
+[MIT](https://github.com/jtberglund/gatsby-plugin-reason/blob/master/LICENSE.md)
