@@ -45,18 +45,18 @@ export const resolvableExtensions = () => ['.ml', '.re'];
 export const onCreatePage = ({ page, boundActionCreators: { createPage, deletePage } }, { derivePathFromComponentName }) => {
     return new Promise((resolve, reject) => {
         const oldPage = Object.assign({}, page);
-        const { component: path } = page;
+        const { component, path } = page;
 
-        if (isCompiledFile(path)) {
+        if (isCompiledFile(component)) {
             // Remove .bs components so we don't have duplicates
             deletePage(oldPage);
-        } else if (derivePathFromComponentName && isReasonFile(path)) {
+        } else if (derivePathFromComponentName && isReasonFile(component) && !path.endsWith('.html')) {
             // Try to grab the name of the component from the ReasonReact
             // component instead of using the file name
-            const source = fs.readFileSync(path, 'utf-8');
+            const source = fs.readFileSync(component, 'utf-8');
             const newPath = getPathForComponent(source);
             if (newPath !== undefined) {
-                const newPage = Object.assign({}, page, { path: `/${newPath}/` });
+                const newPage = Object.assign({}, page, { path: newPath });
                 deletePage(oldPage);
                 createPage(newPage);
             }
