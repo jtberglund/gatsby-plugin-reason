@@ -48,5 +48,5 @@ export const getPathForComponent = source => {
     }
 
     const name = getNameFromReasonComponent(line);
-    return name === 'index' ? '' : name;
+    return name === 'index' ? '/' : `/${name}/`;
 };
