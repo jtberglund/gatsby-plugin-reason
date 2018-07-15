@@ -22,14 +22,14 @@
     "devDependencies": {
         "babel-cli": "^6.26.0",
         "babel-preset-env": "^1.6.1",
-        "jest": "^23.1.0"
+        "jest": "^23.4.1"
     },
     "dependencies": {
-        "bs-loader": "^2.0.1",
-        "bsb-js": "^1.0.2",
+        "bs-loader": "^2.0.5",
+        "bsb-js": "^1.1.6",
         "reason-react": "^0.4.2"
     },
     "peerDependencies": {
-        "gatsby": "^1.0.0"
+        "gatsby": "next"
     }
 }

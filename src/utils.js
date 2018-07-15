@@ -1,6 +1,3 @@
-import fs from 'fs';
-import path from 'path';
-
 /**
  * Names of different functions that can be used to create a component in ReasonReact
  * Used to parse the name from page components to create the URL path

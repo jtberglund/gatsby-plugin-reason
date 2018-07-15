@@ -10,10 +10,16 @@ const REASON_TEST = /\.(ml|re)$/;
 const isCompiledFile = fileName => BS_TEST.test(fileName);
 const isReasonFile = fileName => REASON_TEST.test(fileName);
 
-export const modifyWebpackConfig = ({ config }) =>
-    config.loader('reason', {
-        test: REASON_TEST,
-        loader: 'bs-loader'
+export const onCreateWebpackConfig = ({ actions }) =>
+    actions.setWebpackConfig({
+        module: {
+            rules: [
+                {
+                    test: REASON_TEST,
+                    use: 'bs-loader'
+                }
+            ]
+        }
     });
 
 const jsFilePath = (buildDir, moduleDir, resourcePath, inSource, bsSuffix) => {
@@ -42,7 +48,7 @@ export const preprocessSource = ({ filename }) => {
 
 export const resolvableExtensions = () => ['.ml', '.re'];
 
-export const onCreatePage = ({ page, boundActionCreators: { createPage, deletePage } }, { derivePathFromComponentName }) => {
+export const onCreatePage = ({ page, actions: { createPage, deletePage } }, { derivePathFromComponentName }) => {
     return new Promise((resolve, reject) => {
         const oldPage = Object.assign({}, page);
         const { component, path } = page;
