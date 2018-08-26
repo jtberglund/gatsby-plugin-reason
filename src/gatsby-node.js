@@ -1,4 +1,4 @@
-import { compileFileSync, runBuildSync } from 'bsb-js';
+import { compileFileSync } from 'bsb-js';
 
 import fs from 'fs';
 import { getPathForComponent } from './utils';
