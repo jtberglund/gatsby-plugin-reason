@@ -1003,11 +1003,7 @@ bs-loader@^2.0.6:
     loader-utils "^1.1.0"
     read-bsconfig "^1.0.1"
 
-bsb-js@^1.0.0:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/bsb-js/-/bsb-js-1.0.2.tgz#b9e7af1dfdb8de6191bb36fdff43f59359a7dfe7"
-
-bsb-js@^1.1.7:
+bsb-js@^1.0.0, bsb-js@^1.1.7:
   version "1.1.7"
   resolved "https://registry.yarnpkg.com/bsb-js/-/bsb-js-1.1.7.tgz#12cc91e974f5896b3a2aa8358419d24e56f552c3"
 
