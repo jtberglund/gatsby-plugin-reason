@@ -1,6 +1,9 @@
-import { compileFileSync } from 'bsb-js'
+import { compileFile } from 'bsb-js'
 
 import fs from 'fs'
+import { promisify } from 'util'
+const readFile = promisify(fs.readFile)
+
 import { getPathForComponent } from './utils'
 import path from 'path'
 
@@ -10,7 +13,7 @@ const REASON_TEST = /\.(ml|re)$/
 const isCompiledFile = fileName => BS_TEST.test(fileName)
 const isReasonFile = fileName => REASON_TEST.test(fileName)
 
-export const onCreateWebpackConfig = ({ stage, actions }) => {
+export const onCreateWebpackConfig = ({ actions }) => {
   const { setWebpackConfig } = actions
   setWebpackConfig({
     module: {
@@ -35,7 +38,7 @@ const jsFilePath = (buildDir, moduleDir, resourcePath, inSource, bsSuffix) => {
   return path.join(buildDir, 'lib', moduleDir, jsFileName)
 }
 
-export const preprocessSource = ({ filename }) => {
+export const preprocessSource = async ({ filename }) => {
   if (!isReasonFile(filename)) {
     return null
   }
@@ -48,41 +51,38 @@ export const preprocessSource = ({ filename }) => {
     '.bs.js'
   )
   try {
-    return compileFileSync(moduleDir, compiledFilePath)
+    await compileFile(moduleDir, compiledFilePath)
   } catch (e) {
     // Don't need to print error message since bsb will already do that
+    process.exit(1)
   }
 }
 
 export const resolvableExtensions = () => ['.ml', '.re']
 
-export const onCreatePage = (
-  { page, boundActionCreators: { createPage, deletePage } },
+export const onCreatePage = async (
+  { page, actions: { createPage, deletePage } },
   { derivePathFromComponentName }
 ) => {
-  return new Promise((resolve, reject) => {
-    const oldPage = Object.assign({}, page)
-    const { component, path } = page
+  const oldPage = { ...page }
+  const { component, path } = page
 
-    if (isCompiledFile(component)) {
-      // Remove .bs components so we don't have duplicates
+  if (isCompiledFile(component)) {
+    // Remove .bs components so we don't have duplicates
+    deletePage(oldPage)
+  } else if (
+    derivePathFromComponentName &&
+    isReasonFile(component) &&
+    !path.endsWith('.html')
+  ) {
+    // Try to grab the name of the component from the ReasonReact
+    // component instead of using the file name
+    const source = await readFile(component, 'utf-8')
+    const newPath = getPathForComponent(source)
+    if (newPath !== undefined) {
+      const newPage = { ...page, path: newPath }
       deletePage(oldPage)
-    } else if (
-      derivePathFromComponentName &&
-      isReasonFile(component) &&
-      !path.endsWith('.html')
-    ) {
-      // Try to grab the name of the component from the ReasonReact
-      // component instead of using the file name
-      const source = fs.readFileSync(component, 'utf-8')
-      const newPath = getPathForComponent(source)
-      if (newPath !== undefined) {
-        const newPage = Object.assign({}, page, { path: newPath })
-        deletePage(oldPage)
-        createPage(newPage)
-      }
+      createPage(newPage)
     }
-
-    resolve()
-  })
+  }
 }
