@@ -99,7 +99,7 @@ let default = ReasonReact.wrapReasonForJs(~component, jsProps => make(jsProps##c
 
 1.  Create your ReasonReact component (e.g. `Paragraph.re` shown below)
 
-    ```ml
+    ```reason
     let component = ReasonReact.statelessComponent("Paragraph");
 
     let make = children => {
