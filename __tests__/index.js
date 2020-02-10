@@ -3,27 +3,38 @@ import path from 'path'
 
 import { getLineWithComponentName, extractNameFromLine } from '../src/utils'
 
-const fixturePath = filename => path.join(__dirname, 'fixtures', filename)
+const context = describe
 
-const readFixture = filename => fs.readFileSync(fixturePath(filename), 'utf-8')
+const readFixture = filename => {
+    const fixturePath = path.join(__dirname, 'fixtures', filename)
+    return fs.readFileSync(fixturePath, 'utf-8')
+}
 
-describe('gatsby-plugin-reason', () => {
-    describe('Paths', () => {
+context('Find the line in the component file that contains the name', () => {
+    const findLineIn = fixtureName =>
+        getLineWithComponentName(readFixture(fixtureName))
+
+    test('Simple file with reducer component', () => {
+        const line = findLineIn('reducerComponent')
+        expect(line).toEqual(
+            'let component = ReasonReact.reducerComponent("MyComponent");'
+        )
+    })
+
+    test('File with module', () => {
+        const line = findLineIn('reducerComponentWithModule')
+        expect(line).toEqual(
+            'let component = ReasonReact.reducerComponent("MyComponent");'
+        )
+    })
+})
+
+context('Extract the page name from line with code', () => {
+    it('works', () => {
         const fileContents = readFixture('reducerComponent')
+        const line = getLineWithComponentName(fileContents)
+        const name = extractNameFromLine(line)
 
-        test('Finds the line in the component file that contains the name', () => {
-            const line = getLineWithComponentName(fileContents)
-            const expected =
-                'let component = ReasonReact.reducerComponent("MyComponent");'
-
-            expect(line).toEqual(expected)
-        })
-
-        test('Parses the name from the name of the ReasonReact component', () => {
-            const line = getLineWithComponentName(fileContents)
-            const name = extractNameFromLine(line)
-
-            expect(name).toEqual('MyComponent')
-        })
+        expect(name).toEqual('MyComponent')
     })
 })

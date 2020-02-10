@@ -19,7 +19,7 @@ export const getLineWithComponentName = fileSource =>
     fileSource
         .split('\n')
         .filter(Boolean)
-        .find(l => l.indexOf('let component') !== -1)
+        .find(l => l.startsWith('let component'))
 
 export const extractNameFromLine = componentDef =>
     COMPONENT_FUNCS.map(func => new RegExp(`${func}\\("(.*?)"\\)`))
