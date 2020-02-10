@@ -1,0 +1,8 @@
+[@react.component]
+let make = () => {
+  <h1> {React.string("Hello from Jsx3 component!")} </h1>;
+};
+
+React.setDisplayName(make, "FunctionalComponentName");
+
+let default = make;
