@@ -20,15 +20,16 @@
   "license": "MIT",
   "repository": "https://github.com/jtberglund/gatsby-plugin-reason",
   "devDependencies": {
-    "@babel/cli": "^7.1.5",
-    "@babel/core": "^7.1.6",
-    "@babel/preset-env": "^7.1.6",
-    "jest": "^23.6.0",
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.8.4",
+    "@babel/preset-env": "^7.8.4",
+    "jest": "^25.1.0",
     "prettier": "^1.15.2"
   },
   "dependencies": {
     "bs-loader": "^2.0.7",
     "bsb-js": "^1.1.7",
+    "core-js": "^3.6.4",
     "reason-react": "^0.5.3"
   },
   "peerDependencies": {

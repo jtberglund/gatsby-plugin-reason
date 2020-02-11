@@ -1,0 +1,9 @@
+module Test = {
+  let component = ReasonReact.reducerComponent("ComponentInsideModule");
+};
+
+let component = ReasonReact.reducerComponent("MyComponent");
+
+let my_var = "stuff";
+
+let x = 1 + 2;

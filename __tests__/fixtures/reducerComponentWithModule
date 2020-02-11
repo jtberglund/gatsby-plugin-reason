@@ -1,0 +1,5 @@
+module Foo = {
+  let component = ReasonReact.reducerComponent("ComponentInsideModule");
+};
+
+let component = ReasonReact.reducerComponent("MyComponent");
